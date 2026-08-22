@@ -1,0 +1,485 @@
+language:
+  persian: true
+
+# ============================================================
+# Errors
+# ============================================================
+errors:
+  generic: "An error occurred while processing this command. Please try again later."
+  try_again: "An error occurred. Please try again."
+  not_identified: "Could not identify this ticket."
+  ticket_not_found: "Ticket not found."
+
+# ============================================================
+# Permission errors
+# ============================================================
+permissions:
+  no_permission_resolve: "You do not have permission to resolve this ticket."
+  no_permission_ban: "You do not have permission to ban users from tickets."
+  no_permission_close: "You do not have permission to close this ticket."
+  no_permission_create_channel: "You do not have permission to create a channel for this ticket."
+  no_permission_claim: "You do not have permission to claim this ticket."
+  no_permission_unclaim: "You do not have permission to unclaim this ticket."
+  no_permission_respond: "You do not have permission to respond to this ticket."
+  no_permission_transcript: "You do not have permission to generate transcripts."
+  no_permission_delete: "You do not have permission to delete this ticket."
+  no_permission_move: "You do not have permission to move tickets."
+  no_permission_reopen: "You do not have permission to reopen tickets."
+  no_permission_manage: "You need administrator permissions to manage permissions."
+  no_permission_presets: "You need administrator permissions to manage presets."
+  no_permission_view_presets: "You need administrator permissions to view presets."
+  no_permission_reload: "You need administrator permissions to reload configuration."
+  no_permission_deploy: "You need administrator permissions to deploy the panel."
+  no_permission_config: "You need administrator permissions to change configuration."
+  no_permission_purge: "You do not have permission to use this command. Root role required."
+  no_permission_admin_command: "This command is available to administrators only."
+  not_ticket_channel: "This channel is not associated with any ticket."
+  ticket_channel_only: "This command can only be used in a ticket channel."
+
+# ============================================================
+# Ticket creation
+# ============================================================
+ticket_creation:
+  category_unavailable: "This ticket category is no longer available."
+  create_failed: "Something went wrong while creating your ticket. Please try again."
+  create_error: "Failed to create your ticket. Please try again later."
+  pending_not_configured: "Ticket created but the pending channel is not configured. Please contact an administrator."
+  pending_not_found: "Ticket created but the pending channel was not found. Please contact an administrator."
+  pending_send_failed: "Ticket created but failed to send to the pending channel. Please contact an administrator."
+  success: "Your **{category}** ticket has been created!\n**Ticket ID:** {ticket_id}\nOur team will review your request and get back to you shortly."
+  category_not_available: "This ticket category is not available."
+  no_permission: "You do not have permission to create tickets in this category."
+  already_pending: "You already have a pending ticket in this category."
+  no_categories: "No ticket categories are currently available."
+  max_tickets_reached: "You have reached the maximum number of active tickets ({max})."
+
+# ============================================================
+# Response
+# ============================================================
+response:
+  not_identified: "Could not identify this ticket."
+  ticket_not_found: "Ticket not found."
+  send_failed: "Failed to send response: {error}"
+  auto_closed: "Response sent and ticket **{ticket_id}** has been auto-closed."
+  close_failed: "Failed: {error}"
+  dm_note: "\n\n**Note:** Could not send DM to the user."
+  dm_note_closed: "\n\n**Note:** Could not send DM to the user (their DMs may be closed)."
+
+# ============================================================
+# Close / Resolve
+# ============================================================
+close:
+  ticket_closed: "Ticket **{ticket_id}** has been {label}."
+  label_closed: "Closed"
+  label_resolved: "Resolved"
+
+# ============================================================
+# Ban
+# ============================================================
+ban:
+  already_banned: "This user is already banned from creating tickets."
+  cannot_ban_self: "You cannot ban yourself."
+  cannot_ban_admin: "You cannot ban an administrator."
+  ban_success: "User <@{user_id}> has been banned from creating tickets.\n**Duration:** {duration}\n**Offense:** #{offense}\n**Reason:** {reason}{dm_note}"
+  ban_failed: "Failed to ban user: {error}"
+  not_banned: "**{user}** is not currently banned from creating tickets."
+  no_permission: "You do not have permission to move tickets."
+
+# ============================================================
+# DM embeds (en/fa structure for dual embeds when persian is on)
+# ============================================================
+dm:
+  ticket_response:
+    en:
+      title: "📩 Ticket Response"
+      description: "Your ticket **{ticket_id}** has received a response."
+      footer: "IRBW Support"
+    fa:
+      title: "📩 پاسخ تیکت"
+      description: "تیکت **{ticket_id}** شما یک پاسخ دریافت کرده است."
+      footer: "پشتیبانی IRBW"
+  ticket_closed:
+    en:
+      title: "🔒 Ticket {label}"
+      description: "Your ticket **{ticket_id}** has been {label}."
+      footer: "IRBW Support"
+    fa:
+      title: "🔒 تیکت"
+      description: "تیکت **{ticket_id}** شما {label}."
+      footer: "پشتیبانی IRBW"
+  ban_notice:
+    en:
+      title: "⛔ Ticket Creation Banned"
+      description: "You have been banned from creating tickets in **{guild}**."
+      footer: "IRBW Support"
+    fa:
+      title: "⛔ ممنوعیت ایجاد تیکت"
+      description: "شما از ایجاد تیکت در **{guild}** ممنوع شده‌اید."
+      footer: "پشتیبانی IRBW"
+  ban_lifted:
+    en:
+      title: "✅ Ticket Creation Ban Lifted"
+      description: "Your ban from creating tickets in **{guild}** has been lifted."
+      footer: "IRBW Support"
+    fa:
+      title: "✅ رفع ممنوعیت ایجاد تیکت"
+      description: "ممنوعیت شما از ایجاد تیکت در **{guild}** برداشته شده است."
+      footer: "پشتیبانی IRBW"
+  ticket_moved:
+    en:
+      title: "📦 Ticket Moved"
+      description: "Your ticket **{ticket_id}** has been moved to **{category}**."
+      footer: "IRBW Support"
+    fa:
+      title: "📦 انتقال تیکت"
+      description: "تیکت **{ticket_id}** شما به **{category}** منتقل شده است."
+      footer: "پشتیبانی IRBW"
+  ticket_reopened:
+    en:
+      title: "🔓 Ticket Reopened"
+      description: "Your ticket **{ticket_id}** has been reopened."
+      footer: "IRBW Support"
+    fa:
+      title: "🔓 بازگشایی تیکت"
+      description: "تیکت **{ticket_id}** شما مجدداً باز شده است."
+      footer: "پشتیبانی IRBW"
+  field_duration:
+    en: "Duration"
+    fa: "مدت زمان"
+  field_offense:
+    en: "Offense"
+    fa: "تخلف"
+  field_reason:
+    en: "Reason"
+    fa: "دلیل"
+  field_expires:
+    en: "Expires"
+    fa: "انقضا"
+  field_category:
+    en: "Category"
+    fa: "دسته‌بندی"
+  field_ticket:
+    en: "Ticket"
+    fa: "تیکت"
+  field_response:
+    en: "Staff Response"
+    fa: "پاسخ تیم پشتیبانی"
+  field_staff_response:
+    en: "Staff Response"
+    fa: "پاسخ تیم پشتیبانی"
+  field_banned_at:
+    en: "Banned At"
+    fa: "زمان ممنوعیت"
+  field_banned_by:
+    en: "Banned By"
+    fa: "ممنوع شده توسط"
+  field_time_left:
+    en: "Time Left"
+    fa: "زمان باقی‌مانده"
+
+# ============================================================
+# Pending view buttons
+# ============================================================
+pending_view:
+  template_select: "Quick Close"
+  resolved_button: "✅ Resolved"
+  ban_button: "⛔ Ban"
+  close_reason_button: "🔒 Close with Reason"
+  create_channel_button: "📢 Create Channel"
+  move_button: "📦 Move"
+
+# ============================================================
+# Active view buttons
+# ============================================================
+active_view:
+  claim_button: "Claim"
+  unclaim_button: "Unclaim"
+  respond_button: "Respond"
+  close_button: "Close"
+  transcript_button: "Transcript"
+  delete_button: "Delete"
+  move_button: "Move"
+  reopen_button: "Reopen"
+  channel_created: "Ticket channel {channel} has been created for **{ticket_id}**."
+  create_channel_failed: "Failed to create ticket channel: {error}"
+  not_pending: "This ticket is no longer pending. Current status: {status}."
+  claim_success: "{user} has claimed ticket **{ticket_id}**."
+  claim_failed: "Failed to claim ticket: {error}"
+  unclaim_success: "{user} has unclaimed ticket **{ticket_id}**."
+  unclaim_failed: "Failed to unclaim ticket: {error}"
+  close_success: "{user} has closed ticket **{ticket_id}**."
+  close_failed: "Failed to close ticket: {error}"
+  delete_success: "Ticket **{ticket_id}** has been deleted."
+  delete_failed: "Failed to delete ticket: {error}"
+  reopen_success: "{user} has reopened ticket **{ticket_id}**."
+  reopen_failed: "Failed to reopen ticket: {error}"
+  already_active: "Ticket **{ticket_id}** is already active (status: **{status}**)."
+  cannot_reopen_deleted: "Cannot reopen ticket **{ticket_id}**: it has been deleted."
+  cannot_move_closed: "Cannot move a ticket with status **{status}**."
+  move_prompt: "Select a category to move **{ticket_id}** to:"
+  transcript_success: "Transcript generated for **{ticket_id}**."
+  transcript_failed: "Failed to generate transcript: {error}"
+  already_banned: "<@{user_id}> is already banned from creating tickets."
+
+# ============================================================
+# Move
+# ============================================================
+move:
+  no_categories: "No other categories available to move to."
+  already_in_category: "Ticket is already in that category."
+  category_not_found: "Category configuration not found."
+  open_not_configured: "Open category not configured for this ticket category."
+  open_channel_not_found: "Open category channel not found. Please check configuration."
+  move_failed: "Failed to move ticket: {error}"
+  success: "Ticket **{ticket_id}** has been moved from **{old_category}** to **{new_category}**."
+  same_category: "Source and destination categories are the same: **{category}**."
+  invalid_source: "Invalid source category: **{category}**."
+  invalid_destination: "Invalid destination category: **{category}**."
+  ticket_not_found: "Ticket **{ticket_id}** not found."
+  wrong_category: "Ticket **{ticket_id}** is in category **{category}**, not **{old_category}**."
+  cannot_move_closed: "Cannot move ticket **{ticket_id}**: status is **{status}**."
+  no_permission: "You do not have permission to move tickets."
+
+# ============================================================
+# Template
+# ============================================================
+template:
+  invalid_selection: "Invalid template selection."
+  not_found: "Template not found."
+
+# ============================================================
+# Formatting / Embed field names
+# ============================================================
+formatting:
+  ticket_id: "Ticket ID"
+  user: "User"
+  category: "Category"
+  status: "Status"
+  created: "Created"
+  opened: "Opened"
+  responded: "Responded"
+  closed: "Closed"
+  claimed_by: "Claimed by"
+  staff_response: "Staff Response"
+  action: "Action"
+  actor: "Actor"
+  ticket: "Ticket"
+  details: "Details"
+  reason: "Reason"
+  duration: "Duration"
+  offense: "Offense"
+  staff: "Staff"
+  open_new_ticket: "Open a New Ticket"
+  pending_title: "⏳ New Pending Ticket"
+  pending_footer: "IRBW Support"
+  system_footer: "IRBW Ticket System"
+  archive_footer: "IRBW Ticket System | Ticket auto-closed after staff response"
+  audit_footer: "IRBW Audit Log | {timestamp}"
+  expires: "Expires"
+  permanent: "Permanent"
+  forever: "Forever"
+  expired: "Expired"
+  time_left: "Time Left"
+  banned_at: "Banned At"
+  banned_by: "Banned By"
+  name_offense: "Offense #{number}"
+  name_user: "User {user_id}"
+  expires_in: "Expires in: {duration}"
+
+# ============================================================
+# Ban commands
+# ============================================================
+ban_commands:
+  unban_no_permission: "You do not have permission to unban users from creating tickets."
+  banlist_no_permission: "You do not have permission to view the ban list."
+  banlist_empty: "No users are currently banned from creating tickets."
+  unban_success: "**{user}** has been unbanned from creating tickets."
+  unban_failed: "Failed to unban **{user}**."
+  banlist_title: "Ticket Ban List"
+  banlist_description: "**{count}** user(s) currently banned."
+  baninfo_title: "Ticket Ban Info"
+  baninfo_description: "Ban details for **{user}**."
+  ban_failed: "Failed to check ban info: {error}"
+  move_failed: "Failed to move ticket: {error}"
+
+# ============================================================
+# Unban
+# ============================================================
+unban:
+  success: "User {user_id} has been unbanned from creating tickets."
+  not_banned: "User is not currently banned."
+
+# ============================================================
+# Baninfo
+# ============================================================
+baninfo:
+  not_banned: "User is not currently banned."
+
+# ============================================================
+# Banlist
+# ============================================================
+banlist:
+  title: "Currently Banned Users"
+  no_bans: "No users are currently banned from creating tickets."
+
+# ============================================================
+# Purge
+# ============================================================
+purge:
+  confirm: "⚠️ **Are you sure?** This will delete **all ticket channels** and mark all tickets as deleted in the database.\n\n"
+  cancelled: "Purge cancelled."
+  cancelled_timeout: "Purge cancelled (timed out)."
+  purging: "Purging all tickets..."
+  complete: "Purge complete. Deleted {count} ticket channels."
+  db_deleted: "tickets.db deleted successfully."
+  db_not_found: "tickets.db not found."
+
+# ============================================================
+# Purgeall
+# ============================================================
+purgeall:
+  confirm: "⚠️ **DANGER:** This will **completely delete** `tickets.db` and all bot data.\n\n"
+  cancelled: "PurgeAll cancelled."
+  cancelled_timeout: "PurgeAll cancelled (timed out)."
+  deleting: "Deleting all tickets from database..."
+
+# ============================================================
+# Statistics
+# ============================================================
+statistics:
+  title: "📊 IRBW Ticket System | Your stats are private"
+  no_history: "📊 IRBW Ticket System | No ticket history"
+  stats_description: "View your ticket statistics and recent history"
+
+# ============================================================
+# Permissions management
+# ============================================================
+permissions_mgmt:
+  select_key_first: "Please select a permission key first."
+  cancelled: "Operation cancelled."
+  not_for_you: "Not for you."
+  no_custom_presets: "No custom presets found. Create one with `/permission preset create`."
+  keys_description: "All available permission keys and their current configuration.\n"
+  add_description: "Use the dropdowns below to select a permission key and category scope, "
+  remove_description: "Use the dropdowns below to select a permission key and category scope, "
+  preset_delete_description: "Delete a custom permission preset"
+  preset_list_description: "List all custom permission presets"
+  preset_custom_description: "Custom permission bundles created by admins."
+
+# ============================================================
+# Permission command descriptions
+# ============================================================
+permission_commands:
+  manage: "Manage bot permissions"
+  list_keys: "List all permission keys and their configuration"
+  add: "Add a permission to a role"
+  remove: "Remove a permission from a role"
+  presets: "Manage custom permission presets"
+  preset_create: "Create a custom permission preset bundle"
+  preset_create_help: "Short description of what this preset grants"
+  preset_delete: "Delete a custom permission preset"
+  preset_list: "List all custom permission presets"
+
+# ============================================================
+# Admin commands
+# ============================================================
+admin:
+  reload_success: "Configuration reloaded successfully."
+  reload_failed: "Configuration reload failed: {error}\nRetaining previous configuration."
+  deploy_no_channel: "Please specify a channel or configure one in the ticket panel settings."
+  invalid_integer: "Value must be a positive integer."
+  invalid_ticket_mode: "Value must be `everyone` or `roles`."
+  invalid_ticket_type: "Value must be `buttons` or `dropdown`."
+  invalid_channel: "Value must be a channel ID or channel mention."
+  invalid_boolean: "Value must be `true`/`false`."
+  deploy_failed: "Failed to send panel to channel: {error}"
+  deploy_success: "Ticket panel deployed to {channel} ({panel_type} mode)."
+  deploy_failed_generic: "Failed to deploy panel: {error}"
+  config_updated: "**{setting}** updated to `{value}`.\nRun `/reload` if changes should take effect immediately."
+
+# ============================================================
+# Admin help pages
+# ============================================================
+admin_help:
+  getting_started_title: "Getting Started"
+  getting_started_desc: "Step-by-step guide to get the bot running."
+  categories_title: "Ticket Categories"
+  categories_desc: "How to set up ticket categories in `config.json`."
+  permissions_title: "Permissions"
+  permissions_desc: "How to configure who can do what."
+  panel_title: "Ticket Panel"
+  panel_desc: "How to set up and deploy the ticket creation panel."
+  features_title: "Features"
+  features_desc: "Transcripts, audit logs, limits, and DMs."
+  troubleshooting_title: "Troubleshooting"
+  troubleshooting_desc: "Common issues and fixes."
+
+# ============================================================
+# Commands cog
+# ============================================================
+commands:
+  title: "IRBW Support"
+  description: "View all available bot commands"
+  help_description: "Use the dropdown below to navigate command categories."
+  page_user: "Page: User Commands"
+  page_staff: "Page: Staff Commands | Permission-controlled"
+  page_admin: "Page: Admin Commands | Administrator required"
+  admin_stats_title: "IRBW Admin Statistics | Auto-refresh not supported"
+  delete_all_description: "Delete all tickets (channels + DB records)"
+  delete_db_description: "Delete the entire tickets database"
+  admin_stats_description: "View administrator statistics dashboard"
+  ban_description: "Ban a user from creating tickets"
+  unban_description: "Unban a user from creating tickets"
+  baninfo_description: "Check ban status for a user"
+  banlist_description: "List all users banned from creating tickets"
+  move_description: "Move a ticket from one category to another"
+
+# ============================================================
+# Tickets cog
+# ============================================================
+ticket_commands:
+  respond_description: "Send a response to the current ticket"
+  add_description: "Add a user or role to the current ticket"
+  claim_description: "Claim the current ticket"
+  unclaim_description: "Unclaim the current ticket"
+  delete_description: "Delete the current ticket"
+  transcript_description: "Generate a transcript for the current ticket"
+  no_user_or_role: "Please specify either a user or a role to add."
+  no_permission_add: "You do not have permission to add users/roles to this ticket."
+  user_added: "Added {user} to this ticket."
+  role_added: "Added {role} to this ticket."
+  claim_success: "You have claimed ticket **{ticket_id}**."
+  unclaim_success: "You have unclaimed ticket **{ticket_id}**."
+  delete_success: "Ticket **{ticket_id}** has been deleted."
+  transcript_success: "Transcript generated for **{ticket_id}**."
+  transcript_failed: "Failed to generate transcript: {error}"
+
+# ============================================================
+# Cog descriptions
+# ============================================================
+cog:
+  ticket_commands: "Ticket management commands"
+
+# ============================================================
+# Panels
+# ============================================================
+panels:
+  generic_error: "Something went wrong. Please try again."
+
+# ============================================================
+# Transcript upload
+# ============================================================
+transcript:
+  upload_title: "📎 Transcript"
+  upload_description: "Transcript for ticket {ticket_id}"
+
+# ============================================================
+# Ticket closed labels
+# ============================================================
+labels:
+  closed:
+    en: "Closed"
+    fa: "بسته شده"
+  resolved:
+    en: "Resolved"
+    fa: "حل شده"

@@ -1,0 +1,281 @@
+{
+  "guild_id": 1535791084653908038,
+  "ticket_panel": {
+    "channel_id": 1535791112294371338,
+    "type": "dropdown",
+    "message_id": 1540507212114436178,
+    "embed": {
+      "title": "IRBW Support",
+      "description": "Need help? Select a category below to open a support ticket.",
+      "color": 5814783,
+      "footer": {
+        "text": "IRBW Ticket System"
+      }
+    }
+  },
+  "categories": {
+    "general": {
+      "display_name": "General",
+      "id_prefix": "general",
+      "pending_channel_id": 1539609787820548246,
+      "open_category_id": 1539373224922452048,
+      "closed_category_id": 1539373224922452048,
+      "fields": [
+        {
+          "key": "ign",
+          "label": "IGN",
+          "placeholder": "Enter your Minecraft/In-Game Name",
+          "style": "short",
+          "required": true,
+          "min_length": 3,
+          "max_length": 16
+        },
+        {
+          "key": "question",
+          "label": "Problem / Question",
+          "placeholder": "Explain your problem. Our team will review it and assist you.",
+          "style": "paragraph",
+          "required": true,
+          "min_length": 10,
+          "max_length": 2000
+        }
+      ],
+      "quick_close_reasons": [
+        {
+          "label": "Wrong Category",
+          "message": "This ticket has been closed because it was submitted under the wrong category. Our support system is organized into different categories such as General, Scoring, Appeal, and Other, each handled by a dedicated team. Your request does not fall under the General category. Please review the available categories on the ticket panel and resubmit your request under the correct one so that the appropriate team can assist you promptly. If you are unsure which category fits your issue, feel free to open a new ticket and our team will redirect it for you.",
+          "message_fa": "این تیکت به دلیل ارسال در دسته‌بندی نادرست بسته شده است. سیستم پشتیبانی ما شامل دسته‌بندی‌های مختلفی مانند عمومی، امتیازدهی، درخواست تجدیدنظر و سایر موارد است که هر کدام توسط تیم مخصوصی مدیریت می‌شوند. درخواست شما تحت دسته‌بندی عمومی قرار نمی‌گیرد. لطفاً دسته‌بندی‌های موجود در پنل تیکت را بررسی کنید و درخواست خود را در دسته‌بندی صحیح مجدداً ارسال کنید تا تیم مناسب بتواند به شما کمک کند. اگر مطمئن نیستید کدام دسته‌بندی مناسب مشکل شماست، می‌توانید تیکت جدیدی باز کنید و تیم ما آن را به بخش مربوطه هدایت خواهد کرد."
+        },
+        {
+          "label": "Spam",
+          "message": "This ticket has been closed and marked as spam by our support team. Spam tickets include duplicate submissions, messages with no meaningful content, tickets created to harass or disrupt the support system, or tickets that are otherwise not genuine support requests. Repeated spam submissions may result in temporary or permanent restrictions from creating tickets. If you believe this was done in error, please contact a staff member directly through the server to explain your situation. We take the integrity of our support system seriously to ensure genuine requests receive timely attention.",
+          "message_fa": "این تیکت توسط تیم پشتیبانی ما بسته شده و به عنوان هرزنامه علامت‌گذاری شده است. تیکت‌های هرزنامه شامل ارسال‌های تکراری، پیام‌های بدون محتوای معنادار، تیکت‌هایی که برای آزار یا اختلال در سیستم پشتیبانی ایجاد شده‌اند، یا تیکت‌هایی هستند که درخواست‌های واقعی پشتیبانی نیستند. ارسال‌های مکرر هرزنامه ممکن است منجر به محدودیت موقت یا دائمی از ایجاد تیکت شود. اگر فکر می‌کنید این تصمیم به اشتباه گرفته شده، لطفاً مستقیماً با یکی از اعضای تیم پشتیبانی از طریق سرور تماس بگیرید تا وضعیت خود را توضیح دهید. ما یکپارچگی سیستم پشتیبانی خود را جدی می‌گیریم تا مطمئن شویم درخواست‌های واقعی به موقع رسیدگی می‌شوند."
+        },
+        {
+          "label": "Duplicate",
+          "message": "This ticket has been closed because it is a duplicate of an existing request. Our support team identified that a similar or identical ticket has already been submitted and is being handled. Creating multiple tickets for the same issue slows down the response process and takes resources away from other users who need assistance. Please check the status of your original ticket before submitting a new one. If your original ticket was closed and you still need help, you may reopen it or contact a staff member directly. Thank you for your understanding and cooperation.",
+          "message_fa": "این تیکت به دلیل تکراری بودن بسته شده است. تیم پشتیبانی ما متوجه شده که تیکت مشابه یا یکسانی قبلاً ارسال شده و در حال رسیدگی است. ایجاد چندین تیکت برای یک مشکل واحد، فرآیند پاسخ‌دهی را کند می‌کند و منابع را از کاربران دیگری که نیاز به کمک دارند، می‌گیرد. لطفاً قبل از ارسال تیکت جدید، وضعیت تیکت اصلی خود را بررسی کنید. اگر تیکت اصلی شما بسته شده و هنوز به کمک نیاز دارید، می‌توانید آن را بازگشایی کنید یا مستقیماً با یکی از اعضای تیم پشتیبانی تماس بگیرید. از درک و همکاری شما متشکریم."
+        },
+        {
+          "label": "No Response",
+          "message": "This ticket has been closed due to inactivity. Our support team reached out to you with questions or requests for additional information, but we did not receive a response within a reasonable timeframe. Keeping inactive tickets open prevents our team from focusing on other pending requests. If you still need assistance with your issue, you are welcome to open a new ticket with the relevant details and our team will be happy to help. Please note that our support team operates during specific hours and response times may vary based on current workload and ticket volume.",
+          "message_fa": "این تیکت به دلیل عدم فعالیت بسته شده است. تیم پشتیبانی ما با شما تماس گرفته و سؤالاتی پرسیده یا اطلاعات بیشتری درخواست کرده، اما ما در بازه زمانی مناسبی پاسخی دریافت نکرده‌ایم. باز نگه داشتن تیکت‌های غیرفعال مانع از تمرکز تیم ما روی درخواست‌های دیگر می‌شود. اگر هنوز به کمک نیاز دارید، می‌توانید تیکت جدیدی با جزئیات مربوطه باز کنید و تیم ما خوشحال می‌شود به شما کمک کند. لطفاً توجه داشته باشید که تیم پشتیبانی ما در ساعات مشخصی فعالیت می‌کند و زمان پاسخ‌دهی ممکن است بسته به حجم کار فعلی متفاوت باشد."
+        },
+        {
+          "label": "Resolved",
+          "message": "This ticket has been closed as resolved. Our support team has reviewed your request and determined that the issue has been addressed satisfactorily. The resolution details have been documented in the ticket transcript for your reference. If you experience the same issue in the future or have any additional concerns, please do not hesitate to open a new ticket. For reference, your ticket ID is preserved in our records. We appreciate your patience throughout the support process and hope the resolution meets your expectations. Thank you for using the IRBW support system.",
+          "message_fa": "این تیکت به عنوان حل شده بسته شده است. تیم پشتیبانی ما درخواست شما را بررسی کرده و به این نتیجه رسیده که مشکل به طور رضایت‌بخشی حل شده است. جزئیات حل مشکل در گزارش تیکت برای مرجع شما ثبت شده است. اگر در آینده همان مشکل را تجربه کردید یا نگرانی‌های دیگری دارید، لطفاً تردید نکنید تیکت جدیدی باز کنید. برای مراجعه، شناسه تیکت شما در رکوردهای ما حفظ شده است. ما از صبر شما در طول فرآیند پشتیبانی قدردانی می‌کنیم و امیدواریم راه‌حل ارائه شده مطابق انتظارات شما باشد. از استفاده شما از سیستم پشتیبانی IRBW متشکریم."
+        }
+      ]
+    },
+    "scoring": {
+      "display_name": "Scoring",
+      "id_prefix": "scoring",
+      "pending_channel_id": 1539373527529169059,
+      "open_category_id": 1539373305918787885,
+      "closed_category_id": 1539373305918787885,
+      "fields": [
+        {
+          "key": "ign",
+          "label": "IGN",
+          "placeholder": "Enter your Minecraft/In-Game Name",
+          "style": "short",
+          "required": true,
+          "min_length": 3,
+          "max_length": 16
+        },
+        {
+          "key": "question",
+          "label": "Problem / Question",
+          "placeholder": "Explain your problem. Our team will review it and assist you.",
+          "style": "paragraph",
+          "required": true,
+          "min_length": 10,
+          "max_length": 2000
+        }
+      ],
+      "quick_close_reasons": [
+        {
+          "label": "Wrong Category",
+          "message": "This ticket has been closed because it was submitted under the wrong category. Our support system is organized into different categories such as General, Scoring, Appeal, and Other, each handled by a dedicated team. Your request does not fall under the Scoring category. Please review the available categories on the ticket panel and resubmit your request under the correct one so that the appropriate team can assist you promptly. If you are unsure which category fits your issue, feel free to open a new ticket and our team will redirect it for you.",
+          "message_fa": "این تیکت به دلیل ارسال در دسته‌بندی نادرست بسته شده است. سیستم پشتیبانی ما شامل دسته‌بندی‌های مختلفی مانند عمومی، امتیازدهی، درخواست تجدیدنظر و سایر موارد است که هر کدام توسط تیم مخصوصی مدیریت می‌شوند. درخواست شما تحت دسته‌بندی امتیازدهی قرار نمی‌گیرد. لطفاً دسته‌بندی‌های موجود در پنل تیکت را بررسی کنید و درخواست خود را در دسته‌بندی صحیح مجدداً ارسال کنید تا تیم مناسب بتواند به شما کمک کند. اگر مطمئن نیستید کدام دسته‌بندی مناسب مشکل شماست، می‌توانید تیکت جدیدی باز کنید و تیم ما آن را به بخش مربوطه هدایت خواهد کرد."
+        },
+        {
+          "label": "Spam",
+          "message": "This ticket has been closed and marked as spam by our support team. Spam tickets include duplicate submissions, messages with no meaningful content, tickets created to harass or disrupt the support system, or tickets that are otherwise not genuine support requests. Repeated spam submissions may result in temporary or permanent restrictions from creating tickets. If you believe this was done in error, please contact a staff member directly through the server to explain your situation. We take the integrity of our support system seriously to ensure genuine requests receive timely attention.",
+          "message_fa": "این تیکت توسط تیم پشتیبانی ما بسته شده و به عنوان هرزنامه علامت‌گذاری شده است. تیکت‌های هرزنامه شامل ارسال‌های تکراری، پیام‌های بدون محتوای معنادار، تیکت‌هایی که برای آزار یا اختلال در سیستم پشتیبانی ایجاد شده‌اند، یا تیکت‌هایی هستند که درخواست‌های واقعی پشتیبانی نیستند. ارسال‌های مکرر هرزنامه ممکن است منجر به محدودیت موقت یا دائمی از ایجاد تیکت شود. اگر فکر می‌کنید این تصمیم به اشتباه گرفته شده، لطفاً مستقیماً با یکی از اعضای تیم پشتیبانی از طریق سرور تماس بگیرید تا وضعیت خود را توضیح دهید. ما یکپارچگی سیستم پشتیبانی خود را جدی می‌گیریم تا مطمئن شویم درخواست‌های واقعی به موقع رسیدگی می‌شوند."
+        },
+        {
+          "label": "Score Issue Resolved",
+          "message": "This ticket has been closed as resolved. Our scoring team has thoroughly reviewed your request regarding your score or rating issue and determined that the matter has been addressed. The relevant calculations, adjustments, or corrections have been applied where applicable. The resolution details have been documented in the ticket transcript for your reference. If you believe there is still a discrepancy with your score or if the issue persists, you are welcome to open a new ticket with supporting evidence such as screenshots or logs, and our team will investigate further. Thank you for your patience.",
+          "message_fa": "این تیکت به عنوان حل شده بسته شده است. تیم امتیازدهی ما درخواست شما در مورد مشکل امتیاز یا رتبه‌بندی را به طور کامل بررسی کرده و به این نتیجه رسیده که موضوع رسیدگی شده است. محاسبات، تنظیمات یا اصلاحات مربوطه در صورت نیاز اعمال شده‌اند. جزئیات راه‌حل در گزارش تیکت برای مرجع شما ثبت شده است. اگر فکر می‌کنید هنوز اختلافی در امتیاز شما وجود دارد یا مشکل همچنان پابرجاست، می‌توانید تیکت جدیدی با مدارک پشتیبانی مانند اسکرین‌شات یا لاگ باز کنید و تیم ما بیشتر بررسی خواهد کرد. از صبر شما متشکریم."
+        },
+        {
+          "label": "No Response",
+          "message": "This ticket has been closed due to inactivity. Our scoring team reached out to you with questions or requests for additional information regarding your score issue, but we did not receive a response within a reasonable timeframe. Keeping inactive tickets open prevents our team from focusing on other pending requests. If you still need assistance with your scoring issue, you are welcome to open a new ticket with the relevant details and our team will be happy to help. Please note that our support team operates during specific hours and response times may vary based on current workload.",
+          "message_fa": "این تیکت به دلیل عدم فعالیت بسته شده است. تیم امتیازدهی ما با شما تماس گرفته و سؤالاتی در مورد مشکل امتیاز شما پرسیده یا اطلاعات بیشتری درخواست کرده، اما ما در بازه زمانی مناسبی پاسخی دریافت نکرده‌ایم. باز نگه داشتن تیکت‌های غیرفعال مانع از تمرکز تیم ما روی درخواست‌های دیگر می‌شود. اگر هنوز به کمک در مورد مشکل امتیاز خود نیاز دارید، می‌توانید تیکت جدیدی با جزئیات مربوطه باز کنید و تیم ما خوشحال می‌شود به شما کمک کند. لطفاً توجه داشته باشید که تیم پشتیبانی ما در ساعات مشخصی فعالیت می‌کند."
+        }
+      ]
+    },
+    "appeal": {
+      "display_name": "Appeal",
+      "id_prefix": "appeal",
+      "pending_channel_id": 1539373616242622584,
+      "open_category_id": 1539373346700140625,
+      "closed_category_id": 1539373346700140625,
+      "fields": [
+        {
+          "key": "ign",
+          "label": "IGN",
+          "placeholder": "Enter your Minecraft/In-Game Name",
+          "style": "short",
+          "required": true,
+          "min_length": 3,
+          "max_length": 16
+        },
+        {
+          "key": "reason",
+          "label": "What's your ban reason?",
+          "placeholder": "Why are you banned?",
+          "style": "paragraph",
+          "required": true,
+          "min_length": 10,
+          "max_length": 2000
+        },
+        {
+          "key": "why",
+          "label": "Why should we unban you?",
+          "placeholder": "Explain why you should be unbanned.",
+          "style": "paragraph",
+          "required": true,
+          "min_length": 10,
+          "max_length": 2000
+        }
+      ],
+      "quick_close_reasons": [
+        {
+          "label": "Appeal Approved",
+          "message": "This ticket has been closed because your appeal has been reviewed and approved by our team. After careful consideration of the evidence and circumstances you provided, we have decided to reverse the previous action taken against you. Your restrictions have been lifted and you may resume normal activity on the server. Please ensure that you follow all server rules and guidelines going forward to avoid any future issues. If you have any questions about the conditions of your appeal approval or need further clarification, feel free to reach out to our support team. Welcome back.",
+          "message_fa": "این تیکت به دلیل تأیید درخواست تجدیدنظر شما بسته شده است. تیم ما پس از بررسی دقیق مدارک و شرایطی که ارائه کردید، تصمیم گرفته اقدام قبلی اعمال شده علیه شما را لغو کند. محدودیت‌های شما برداشته شده و می‌توانید فعالیت عادی خود در سرور را از سر بگیرید. لطفاً مطمئن شوید که از تمام قوانین و دستورالعمل‌های سرور پیروی می‌کنید تا از مشکلات آتی جلوگیری شود. اگر سؤالی در مورد شرایط تأیید درخواست تجدیدنظر خود دارید یا به توضیح بیشتر نیاز دارید، با تیم پشتیبانی ما تماس بگیرید. خوش آمدید."
+        },
+        {
+          "label": "Appeal Denied",
+          "message": "This ticket has been closed because your appeal has been reviewed and denied by our team. After thorough evaluation of the evidence and circumstances you provided, we have determined that the original decision stands. The reasons for this decision are documented in the ticket transcript for your reference. If you have new evidence or circumstances that were not included in your original appeal, you may submit a new appeal with that information. Please note that repeated frivolous appeals may result in additional restrictions. Our decision is final at this stage.",
+          "message_fa": "این تیکت به دلیل رد شدن درخواست تجدیدنظر شما بسته شده است. تیم ما پس از ارزیابی دقیق مدارک و شرایطی که ارائه کردید، به این نتیجه رسیده که تصمیم اصلی پابرجاست. دلایل این تصمیم در گزارش تیکت برای مرجع شما ثبت شده است. اگر مدارک یا شرایط جدیدی دارید که در درخواست اولیه شما لحاظ نشده، می‌توانید درخواست جدیدی با آن اطلاعات ارسال کنید. لطفاً توجه داشته باشید که ارسال مکرر درخواست‌های بی‌اساس ممکن است منجر به محدودیت‌های اضافی شود. تصمیم ما در این مرحله نهایی است."
+        },
+        {
+          "label": "Insufficient Info",
+          "message": "This ticket has been closed because your appeal did not contain enough information for our team to make a thorough review. We were unable to properly evaluate your case without additional details such as specific evidence, context about the original incident, or supporting documentation. Please open a new appeal ticket and include as much relevant information as possible, including screenshots, timestamps, descriptions of what happened, and any other evidence that supports your case. A complete and well-documented appeal will significantly improve your chances of a favorable outcome. Our team is here to help but needs sufficient information to do so.",
+          "message_fa": "این تیکت به دلیل ناکافی بودن اطلاعات درخواست تجدیدنظر شما بسته شده است. ما قادر به ارزیابی صحیح پرونده شما بدون جزئیات بیشتر مانند مدارک خاص، زمینه حادثه اولیه یا مستندات پشتیبانی نبودیم. لطفاً تیکت جدیدی برای درخواست تجدیدنظر باز کنید و تا حد ممکن اطلاعات مرتبط را شامل اسکرین‌شات، زمان‌بندی‌ها، توضیحات آنچه رخ داده و هر مدارک دیگری که از پرونده شما پشتیبانی می‌کند، ارائه دهید. یک درخواست کامل و مستند شده شانس شما برای نتیجه مطلوب را به طور قابل توجهی افزایش می‌دهد. تیم ما اینجاست تا کمک کند اما به اطلاعات کافی نیاز دارد."
+        },
+        {
+          "label": "Duplicate Appeal",
+          "message": "This ticket has been closed because it is a duplicate of a previously submitted appeal for the same case. Our records show that an appeal for this matter has already been submitted and is either under review or has been processed. Creating duplicate appeals delays the review process and consumes resources needed for other cases. If your original appeal was denied and you have new evidence, please reference the original ticket ID and explain what new information you are providing. If you have not submitted an appeal before and believe this is an error, please contact a staff member directly.",
+          "message_fa": "این تیکت به دلیل تکراری بودن درخواست تجدیدنظر برای همان پرونده بسته شده است. رکوردهای ما نشان می‌دهد که درخواست تجدیدنظر برای این موضوع قبلاً ارسال شده و در حال بررسی یا پردازش است. ایجاد درخواست‌های تکراری، فرآیند بررسی را به تاخیر می‌اندازد و منابع مورد نیاز برای پرونده‌های دیگر را مصرف می‌کند. اگر درخواست اولیه شما رد شده و مدارک جدیدی دارید، لطفاً شناسه تیکت اصلی را ذکر کنید و توضیح دهید چه اطلاعات جدیدی ارائه می‌دهید. اگر قبلاً درخواستی ارسال نکرده‌اید و فکر می‌کنید این یک اشتباه است، لطفاً مستقیماً با یکی از اعضای تیم پشتیبانی تماس بگیرید."
+        },
+        {
+          "label": "Wrong Category",
+          "message": "This ticket has been closed because it was submitted under the wrong category. Our support system is organized into different categories such as General, Scoring, Appeal, and Other, each handled by a dedicated team. Your request does not fall under the Appeal category. Appeal tickets are specifically for users who have been banned or restricted and wish to contest the decision. Please review the available categories on the ticket panel and resubmit your request under the correct one so that the appropriate team can assist you promptly. If you are unsure which category fits your issue, feel free to open a new ticket and our team will redirect it.",
+          "message_fa": "این تیکت به دلیل ارسال در دسته‌بندی نادرست بسته شده است. سیستم پشتیبانی ما شامل دسته‌بندی‌های مختلفی مانند عمومی، امتیازدهی، درخواست تجدیدنظر و سایر موارد است که هر کدام توسط تیم مخصوصی مدیریت می‌شوند. درخواست شما تحت دسته‌بندی درخواست تجدیدنظر قرار نمی‌گیرد. تیکت‌های تجدیدنظر مخصوص کاربرانی است که ممنوع شده یا محدود شده‌اند و می‌خواهند تصمیم را به چالش بکشند. لطفاً دسته‌بندی‌های موجود در پنل تیکت را بررسی کنید و درخواست خود را در دسته‌بندی صحیح مجدداً ارسال کنید. اگر مطمئن نیستید کدام دسته‌بندی مناسب مشکل شماست، می‌توانید تیکت جدیدی باز کنید."
+        }
+      ]
+    },
+    "other": {
+      "display_name": "Other",
+      "id_prefix": "other",
+      "pending_channel_id": 1539373651932086363,
+      "open_category_id": 1539373372578734201,
+      "closed_category_id": 1539373372578734201,
+      "fields": [
+        {
+          "key": "ign",
+          "label": "IGN",
+          "placeholder": "Enter your Minecraft/In-Game Name",
+          "style": "short",
+          "required": true,
+          "min_length": 3,
+          "max_length": 16
+        },
+        {
+          "key": "question",
+          "label": "Problem / Question",
+          "placeholder": "Explain your problem. Our team will review it and assist you.",
+          "style": "paragraph",
+          "required": true,
+          "min_length": 10,
+          "max_length": 2000
+        }
+      ],
+      "quick_close_reasons": [
+        {
+          "label": "Wrong Category",
+          "message": "This ticket has been closed because it was submitted under the wrong category. Our support system is organized into different categories such as General, Scoring, Appeal, and Other, each handled by a dedicated team. Your request does not fall under the Other category. Please review the available categories on the ticket panel and resubmit your request under the correct one so that the appropriate team can assist you promptly. If you are unsure which category fits your issue, feel free to open a new ticket and our team will redirect it for you.",
+          "message_fa": "این تیکت به دلیل ارسال در دسته‌بندی نادرست بسته شده است. سیستم پشتیبانی ما شامل دسته‌بندی‌های مختلفی مانند عمومی، امتیازدهی، درخواست تجدیدنظر و سایر موارد است که هر کدام توسط تیم مخصوصی مدیریت می‌شوند. درخواست شما تحت دسته‌بندی سایر موارد قرار نمی‌گیرد. لطفاً دسته‌بندی‌های موجود در پنل تیکت را بررسی کنید و درخواست خود را در دسته‌بندی صحیح مجدداً ارسال کنید تا تیم مناسب بتواند به شما کمک کند. اگر مطمئن نیستید کدام دسته‌بندی مناسب مشکل شماست، می‌توانید تیکت جدیدی باز کنید و تیم ما آن را به بخش مربوطه هدایت خواهد کرد."
+        },
+        {
+          "label": "Spam",
+          "message": "This ticket has been closed and marked as spam by our support team. Spam tickets include duplicate submissions, messages with no meaningful content, tickets created to harass or disrupt the support system, or tickets that are otherwise not genuine support requests. Repeated spam submissions may result in temporary or permanent restrictions from creating tickets. If you believe this was done in error, please contact a staff member directly through the server to explain your situation. We take the integrity of our support system seriously to ensure genuine requests receive timely attention.",
+          "message_fa": "این تیکت توسط تیم پشتیبانی ما بسته شده و به عنوان هرزنامه علامت‌گذاری شده است. تیکت‌های هرزنامه شامل ارسال‌های تکراری، پیام‌های بدون محتوای معنادار، تیکت‌هایی که برای آزار یا اختلال در سیستم پشتیبانی ایجاد شده‌اند، یا تیکت‌هایی هستند که درخواست‌های واقعی پشتیبانی نیستند. ارسال‌های مکرر هرزنامه ممکن است منجر به محدودیت موقت یا دائمی از ایجاد تیکت شود. اگر فکر می‌کنید این تصمیم به اشتباه گرفته شده، لطفاً مستقیماً با یکی از اعضای تیم پشتیبانی از طریق سرور تماس بگیرید تا وضعیت خود را توضیح دهید. ما یکپارچگی سیستم پشتیبانی خود را جدی می‌گیریم تا مطمئن شویم درخواست‌های واقعی به موقع رسیدگی می‌شوند."
+        },
+        {
+          "label": "No Response",
+          "message": "This ticket has been closed due to inactivity. Our support team reached out to you with questions or requests for additional information, but we did not receive a response within a reasonable timeframe. Keeping inactive tickets open prevents our team from focusing on other pending requests. If you still need assistance with your issue, you are welcome to open a new ticket with the relevant details and our team will be happy to help. Please note that our support team operates during specific hours and response times may vary based on current workload and ticket volume.",
+          "message_fa": "این تیکت به دلیل عدم فعالیت بسته شده است. تیم پشتیبانی ما با شما تماس گرفته و سؤالاتی پرسیده یا اطلاعات بیشتری درخواست کرده، اما ما در بازه زمانی مناسبی پاسخی دریافت نکرده‌ایم. باز نگه داشتن تیکت‌های غیرفعال مانع از تمرکز تیم ما روی درخواست‌های دیگر می‌شود. اگر هنوز به کمک نیاز دارید، می‌توانید تیکت جدیدی با جزئیات مربوطه باز کنید و تیم ما خوشحال می‌شود به شما کمک کند. لطفاً توجه داشته باشید که تیم پشتیبانی ما در ساعات مشخصی فعالیت می‌کند و زمان پاسخ‌دهی ممکن است بسته به حجم کار فعلی متفاوت باشد."
+        },
+        {
+          "label": "Resolved",
+          "message": "This ticket has been closed as resolved. Our support team has reviewed your request and determined that the issue has been addressed satisfactorily. The resolution details have been documented in the ticket transcript for your reference. If you experience the same issue in the future or have any additional concerns, please do not hesitate to open a new ticket. For reference, your ticket ID is preserved in our records. We appreciate your patience throughout the support process and hope the resolution meets your expectations. Thank you for using the IRBW support system.",
+          "message_fa": "این تیکت به عنوان حل شده بسته شده است. تیم پشتیبانی ما درخواست شما را بررسی کرده و به این نتیجه رسیده که مشکل به طور رضایت‌بخشی حل شده است. جزئیات حل مشکل در گزارش تیکت برای مرجع شما ثبت شده است. اگر در آینده همان مشکل را تجربه کردید یا نگرانی‌های دیگری دارید، لطفاً تردید نکنید تیکت جدیدی باز کنید. برای مراجعه، شناسه تیکت شما در رکوردهای ما حفظ شده است. ما از صبر شما در طول فرآیند پشتیبانی قدردانی می‌کنیم و امیدواریم راه‌حل ارائه شده مطابق انتظارات شما باشد. از استفاده شما از سیستم پشتیبانی IRBW متشکریم."
+        }
+      ]
+    }
+  },
+  "max_open_tickets": 3,
+  "closed_naming_format": "closed-{prefix}-{number}",
+  "transcripts": {
+    "channel_id": 1539374111074295948
+  },
+  "audit_log": {
+    "enabled": true,
+    "channel_id": 1539374156288762006
+  },
+  "dm_settings": {
+    "enabled": true,
+    "close_dm": true
+  },
+  "ui": {
+    "color_success": 3066993,
+    "color_pending": 16776960,
+    "color_open": 3066993,
+    "color_claimed": 10181046,
+    "color_closed": 8487426,
+    "color_deleted": 15158332
+  },
+  "archive_channel_id": 1539423699743023124,
+  "ticket_ban": {
+    "offense_durations": {
+      "1": "3d",
+      "2": "7d",
+      "3": "14d",
+      "4": "30d",
+      "5": "permanent"
+    }
+  },
+  "root_role_ids": [
+    1539429456622518362
+  ],
+  "timezone": "Asia/Tehran",
+  "proxy": {
+    "enabled": false,
+    "host": "",
+    "port": 0,
+    "type": "http",
+    "username": "",
+    "password": ""
+  },
+  "alerts": {
+    "enabled": true,
+    "channel_id": 1539607149100015686,
+    "dm_failed_message": "We tried DMing you the ticket response, but your DMs are closed. Run the `/status` command to view the response."
+  }
+}

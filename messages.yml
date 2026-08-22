@@ -33,6 +33,7 @@ permissions:
   no_permission_config: "You need administrator permissions to change configuration."
   no_permission_purge: "You do not have permission to use this command. Root role required."
   no_permission_admin_command: "This command is available to administrators only."
+  no_permission_admin_stats: "You do not have permission to use this command."
   not_ticket_channel: "This channel is not associated with any ticket."
   ticket_channel_only: "This command can only be used in a ticket channel."
 
@@ -293,10 +294,13 @@ ban_commands:
   unban_no_permission: "You do not have permission to unban users from creating tickets."
   banlist_no_permission: "You do not have permission to view the ban list."
   banlist_empty: "No users are currently banned from creating tickets."
+  not_banned: "**{user}** is not currently banned from creating tickets."
   unban_success: "**{user}** has been unbanned from creating tickets."
   unban_failed: "Failed to unban **{user}**."
+  unban_error: "Failed to unban user: {error}"
   banlist_title: "Ticket Ban List"
   banlist_description: "**{count}** user(s) currently banned."
+  banlist_failed: "Failed to list bans: {error}"
   baninfo_title: "Ticket Ban Info"
   baninfo_description: "Ban details for **{user}**."
   ban_failed: "Failed to check ban info: {error}"
@@ -326,11 +330,13 @@ banlist:
 # Purge
 # ============================================================
 purge:
-  confirm: "⚠️ **Are you sure?** This will delete **all ticket channels** and mark all tickets as deleted in the database.\n\n"
+  confirm: "⚠️ **Are you sure?** This will delete **all ticket channels** and mark all tickets as deleted in the database.\n\nType `CONFIRM PURGE` in the next message to proceed."
   cancelled: "Purge cancelled."
   cancelled_timeout: "Purge cancelled (timed out)."
   purging: "Purging all tickets..."
-  complete: "Purge complete. Deleted {count} ticket channels."
+  complete: "✅ Purge complete. **{count}** tickets deleted."
+  complete_with_errors: "✅ Purge complete. **{count}** tickets deleted.\n⚠️ {errors} channels could not be deleted."
+  purge_failed: "Failed to purge tickets: {error}"
   db_deleted: "tickets.db deleted successfully."
   db_not_found: "tickets.db not found."
 
@@ -338,10 +344,13 @@ purge:
 # Purgeall
 # ============================================================
 purgeall:
-  confirm: "⚠️ **DANGER:** This will **completely delete** `tickets.db` and all bot data.\n\n"
+  confirm: "⚠️ **DANGER:** This will **completely delete** `tickets.db` and all bot data.\n\nType `CONFIRM PURGEALL` in the next message to proceed."
   cancelled: "PurgeAll cancelled."
   cancelled_timeout: "PurgeAll cancelled (timed out)."
   deleting: "Deleting all tickets from database..."
+  complete: "✅ Database deleted. **{count}** tickets removed. Bot will restart with fresh DB."
+  db_delete_failed: "⚠️ Tickets cleared but database file could not be deleted. Manual removal of `tickets.db` may be needed."
+  purge_failed: "Failed to purge database: {error}"
 
 # ============================================================
 # Statistics
@@ -396,6 +405,23 @@ admin:
   deploy_success: "Ticket panel deployed to {channel} ({panel_type} mode)."
   deploy_failed_generic: "Failed to deploy panel: {error}"
   config_updated: "**{setting}** updated to `{value}`.\nRun `/reload` if changes should take effect immediately."
+  admin_stats_title: "IRBW Admin Statistics Dashboard"
+  total_tickets: "Total Tickets"
+  today: "Today"
+  this_week: "This Week"
+  this_month: "This Month"
+  pending: "Pending"
+  open: "Open"
+  claimed: "Claimed"
+  responded: "Responded"
+  closed: "Closed"
+  deleted: "Deleted"
+  avg_response_time: "Avg Response Time"
+  avg_resolution_time: "Avg Resolution Time"
+  category_distribution: "Category Distribution"
+  top_responders: "Top Responders"
+  top_claimers: "Top Claimers"
+  none: "None"
 
 # ============================================================
 # Admin help pages

@@ -471,18 +471,24 @@ async def _close_ticket_flow(
 
     was_pending = ticket["status"] == "PENDING"
 
+    already_responded = False
     try:
         await ticket_service.respond_to_ticket(
             ticket_id, interaction.user.id, reason or f"Ticket {label.lower()} by staff."
         )
         updated_ticket = await ticket_service.get_ticket(ticket_id)
     except Exception as e:
-        logger.error("Failed to respond to ticket %s: %s", ticket_id, e)
-        try:
-            await interaction.followup.send(msg.get("response.close_failed", error=e), ephemeral=True)
-        except Exception:
-            pass
-        return
+        if "already been responded" in str(e).lower() or "already" in str(e).lower():
+            logger.warning("Ticket %s already responded, skipping respond step: %s", ticket_id, e)
+            already_responded = True
+            updated_ticket = ticket
+        else:
+            logger.error("Failed to respond to ticket %s: %s", ticket_id, e)
+            try:
+                await interaction.followup.send(msg.get("response.close_failed", error=e), ephemeral=True)
+            except Exception:
+                pass
+            return
 
     member = interaction.guild.get_member(ticket["user_id"]) if interaction.guild else None
     dm_sent = True
@@ -522,6 +528,7 @@ async def _close_ticket_flow(
         updated_ticket = await ticket_service.get_ticket(ticket_id)
     except Exception as e:
         logger.error("Failed to auto-close ticket %s: %s", ticket_id, e)
+        updated_ticket = ticket
 
     if was_pending:
         pending_msg_id = ticket.get("pending_message_id")
@@ -536,8 +543,12 @@ async def _close_ticket_flow(
                     except Exception as e:
                         logger.warning("Failed to delete pending message %d: %s", pending_msg_id, e)
     else:
+        ticket_channel_id = updated_ticket.get("discord_channel_id")
         closed_category_id = cat_config.get("closed_category_id") if cat_config else None
-        if closed_category_id and interaction.guild and interaction.channel:
+        if closed_category_id and interaction.guild and ticket_channel_id:
+            ticket_channel = interaction.guild.get_channel(ticket_channel_id)
+            if not ticket_channel:
+                logger.error("Cannot find channel %s for ticket %s during close", ticket_channel_id, ticket_id)
             closed_category = interaction.guild.get_channel(closed_category_id)
             if closed_category and isinstance(closed_category, discord.CategoryChannel):
                 try:
@@ -564,14 +575,15 @@ async def _close_ticket_flow(
                                 view_channel=True, send_messages=True,
                                 read_message_history=True, attach_files=True,
                             )
-                    ok = await safe_channel_edit(
-                        interaction.channel,
-                        name=closed_name,
-                        category=closed_category,
-                        overwrites=new_overwrites,
-                    )
-                    if not ok:
-                        logger.error("Failed to move ticket %s to closed category after retries", ticket_id)
+                    if ticket_channel:
+                        ok = await safe_channel_edit(
+                            ticket_channel,
+                            name=closed_name,
+                            category=closed_category,
+                            overwrites=new_overwrites,
+                        )
+                        if not ok:
+                            logger.error("Failed to move ticket %s to closed category after retries", ticket_id)
                 except Exception as e:
                     logger.error("Failed to move ticket to closed category: %s", e)
 

@@ -52,6 +52,8 @@ def ticket_status_color(status: str, config_ui: dict[str, Any]) -> int:
 
 
 def truncate(text: str, max_length: int = 1024) -> str:
+    if text is None:
+        return ""
     if len(text) <= max_length:
         return text
     return text[: max_length - 3] + "..."

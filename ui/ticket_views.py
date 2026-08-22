@@ -799,44 +799,49 @@ class ActiveTicketView(discord.ui.View):
         if closed_category_id and interaction.guild:
             closed_category = interaction.guild.get_channel(closed_category_id)
             if closed_category and isinstance(closed_category, discord.CategoryChannel):
-                try:
-                    naming_format = config_service.get_closed_naming_format()
-                    prefix = cat_config.get("id_prefix", ticket["category"]) if cat_config else ticket["category"]
-                    num = ticket_id.split("-")[-1]
-                    closed_name = naming_format.format(
-                        prefix=prefix, number=num, ticket_id=ticket_id
-                    )
+                ticket_channel_id = ticket.get("discord_channel_id")
+                ticket_channel = interaction.guild.get_channel(ticket_channel_id) if ticket_channel_id else None
+                if not ticket_channel:
+                    logger.error("Cannot find channel for ticket %s during close (channel_id=%s)", ticket_id, ticket_channel_id)
+                else:
+                    try:
+                        naming_format = config_service.get_closed_naming_format()
+                        prefix = cat_config.get("id_prefix", ticket["category"]) if cat_config else ticket["category"]
+                        num = ticket_id.split("-")[-1]
+                        closed_name = naming_format.format(
+                            prefix=prefix, number=num, ticket_id=ticket_id
+                        )
 
-                    config_view_closed = cat_config.get("view_closed_roles", []) if cat_config else []
-                    perm_service = interaction.client.permission_service
-                    db_view_closed = await perm_service.get_role_ids_for_permission("ticket_view_closed", ticket["category"])
-                    db_view_closed += await perm_service.get_role_ids_for_permission("ticket_view_closed")
-                    view_closed_role_ids = list(set(config_view_closed + db_view_closed))
-                    new_overwrites = {
-                        interaction.guild.default_role: discord.PermissionOverwrite(view_channel=False),
-                        interaction.guild.me: discord.PermissionOverwrite(
-                            view_channel=True, send_messages=True,
-                            read_message_history=True, manage_channels=True, attach_files=True,
-                        ),
-                    }
-                    for role_id in view_closed_role_ids:
-                        role = interaction.guild.get_role(role_id)
-                        if role:
-                            new_overwrites[role] = discord.PermissionOverwrite(
+                        config_view_closed = cat_config.get("view_closed_roles", []) if cat_config else []
+                        perm_service = interaction.client.permission_service
+                        db_view_closed = await perm_service.get_role_ids_for_permission("ticket_view_closed", ticket["category"])
+                        db_view_closed += await perm_service.get_role_ids_for_permission("ticket_view_closed")
+                        view_closed_role_ids = list(set(config_view_closed + db_view_closed))
+                        new_overwrites = {
+                            interaction.guild.default_role: discord.PermissionOverwrite(view_channel=False),
+                            interaction.guild.me: discord.PermissionOverwrite(
                                 view_channel=True, send_messages=True,
-                                read_message_history=True, attach_files=True,
-                            )
+                                read_message_history=True, manage_channels=True, attach_files=True,
+                            ),
+                        }
+                        for role_id in view_closed_role_ids:
+                            role = interaction.guild.get_role(role_id)
+                            if role:
+                                new_overwrites[role] = discord.PermissionOverwrite(
+                                    view_channel=True, send_messages=True,
+                                    read_message_history=True, attach_files=True,
+                                )
 
-                    ok = await safe_channel_edit(
-                        interaction.channel,
-                        name=closed_name,
-                        category=closed_category,
-                        overwrites=new_overwrites,
-                    )
-                    if not ok:
-                        logger.error("Failed to move ticket %s to closed category after retries", ticket_id)
-                except Exception as e:
-                    logger.error("Failed to move ticket to closed category: %s", e)
+                        ok = await safe_channel_edit(
+                            ticket_channel,
+                            name=closed_name,
+                            category=closed_category,
+                            overwrites=new_overwrites,
+                        )
+                        if not ok:
+                            logger.error("Failed to move ticket %s to closed category after retries", ticket_id)
+                    except Exception as e:
+                        logger.error("Failed to move ticket to closed category: %s", e)
 
         archive_channel_id = config_service.get("archive_channel_id")
         if archive_channel_id and interaction.guild:
@@ -847,7 +852,7 @@ class ActiveTicketView(discord.ui.View):
                     archive_embed = make_archive_embed(
                         updated_ticket, config_service.get_ui(),
                         staff_name=str(interaction.user),
-                        response_text=updated_ticket.get("response", "No response recorded."),
+                        response_text=updated_ticket.get("response") or "No response recorded.",
                     )
                     await archive_channel.send(embed=archive_embed)
                 except Exception as e:

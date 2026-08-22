@@ -10,6 +10,8 @@ logger = logging.getLogger("ticket_bot.cogs.statistics")
 
 
 def truncate(text: str, length: int) -> str:
+    if not text:
+        return ""
     return text if len(text) <= length else text[:length - 3] + "..."
 
 

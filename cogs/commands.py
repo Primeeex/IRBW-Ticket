@@ -186,7 +186,7 @@ class CommandsCog(commands.Cog):
                 existing = await self.ticket_service.check_user_banned(user.id)
                 if not existing:
                     await interaction.response.send_message(
-                        f"**{user}** is not currently banned from creating tickets.",
+                        msg.get("ban_commands.not_banned", user=user),
                         ephemeral=True,
                     )
                     return
@@ -201,7 +201,7 @@ class CommandsCog(commands.Cog):
                         guild=interaction.guild.name,
                     )
 
-                    dm_note = "" if dm_sent else "\n\n**Note:** Could not send DM to the user."
+                    dm_note = "" if dm_sent else msg.get("response.dm_note")
 
                     await self.audit_service.log(
                         action="USER_UNBANNED",
@@ -213,12 +213,12 @@ class CommandsCog(commands.Cog):
                     )
 
                     await interaction.response.send_message(
-                        f"**{user}** has been unbanned from creating tickets.{dm_note}",
+                        msg.get("ban_commands.unban_success", user=user) + dm_note,
                         ephemeral=True,
                     )
                 else:
                     await interaction.response.send_message(
-                        f"Failed to unban **{user}**.",
+                        msg.get("ban_commands.unban_failed", user=user),
                         ephemeral=True,
                     )
 
@@ -226,8 +226,8 @@ class CommandsCog(commands.Cog):
                 logger.error("Error in /ticket unban: %s", e)
                 if not interaction.response.is_done():
                     try:
-                        await interaction.response.send_message(
-                            f"Failed to unban user: {e}",
+                        await interaction.followup.send(
+                            msg.get("ban_commands.unban_error", error=e),
                             ephemeral=True,
                         )
                     except Exception:
@@ -244,7 +244,7 @@ class CommandsCog(commands.Cog):
                 ban_info = await self.ticket_service.check_user_banned(user.id)
                 if not ban_info:
                     await interaction.response.send_message(
-                        f"**{user}** is not currently banned from creating tickets.",
+                        msg.get("ban_commands.not_banned", user=user),
                         ephemeral=True,
                     )
                     return
@@ -255,14 +255,14 @@ class CommandsCog(commands.Cog):
                 permanent = ban_info.get("expires_at") is None
 
                 embed = discord.Embed(
-                    title="Ticket Ban Info",
-                    description=f"Ban details for **{user}**.",
+                    title=msg.get("ban_commands.baninfo_title"),
+                    description=msg.get("ban_commands.baninfo_description", user=user),
                     color=15158332,
                 )
                 embed.set_thumbnail(url=user.display_avatar.url)
 
                 embed.add_field(
-                    name="Offense",
+                    name=msg.get("formatting.offense"),
                     value=f"#{ban_info.get('offense_number', '?')}",
                     inline=True,
                 )
@@ -272,27 +272,27 @@ class CommandsCog(commands.Cog):
                     try:
                         banned_dt = datetime.fromisoformat(banned_at)
                         ts = int(banned_dt.timestamp())
-                        embed.add_field(name="Banned At", value=f"<t:{ts}:F>", inline=True)
+                        embed.add_field(name=msg.get("formatting.banned_at"), value=f"<t:{ts}:F>", inline=True)
                     except Exception:
-                        embed.add_field(name="Banned At", value=banned_at, inline=True)
+                        embed.add_field(name=msg.get("formatting.banned_at"), value=banned_at, inline=True)
 
                 banned_by_id = ban_info.get("banned_by", 0)
-                embed.add_field(name="Banned By", value=f"<@{banned_by_id}>", inline=True)
+                embed.add_field(name=msg.get("formatting.banned_by"), value=f"<@{banned_by_id}>", inline=True)
 
                 reason = ban_info.get("reason", "")
-                embed.add_field(name="Reason", value=reason or "*No reason provided*", inline=False)
+                embed.add_field(name=msg.get("formatting.reason"), value=reason or "*No reason provided*", inline=False)
 
                 if permanent:
-                    embed.add_field(name="Duration", value="**Permanent**", inline=True)
-                    embed.add_field(name="Time Left", value="Forever", inline=True)
+                    embed.add_field(name=msg.get("formatting.duration"), value=f"**{msg.get('formatting.permanent')}**", inline=True)
+                    embed.add_field(name=msg.get("formatting.time_left"), value=msg.get("formatting.forever"), inline=True)
                 else:
                     try:
                         exp_dt = datetime.fromisoformat(expires_at)
                         exp_ts = int(exp_dt.timestamp())
-                        embed.add_field(name="Expires", value=f"<t:{exp_ts}:F>", inline=True)
+                        embed.add_field(name=msg.get("formatting.expires"), value=f"<t:{exp_ts}:F>", inline=True)
                         remaining = exp_dt - now
                         if remaining.total_seconds() <= 0:
-                            embed.add_field(name="Time Left", value="Expired", inline=True)
+                            embed.add_field(name=msg.get("formatting.time_left"), value=msg.get("formatting.expired"), inline=True)
                         else:
                             days = remaining.days
                             hours, remainder = divmod(remaining.seconds, 3600)
@@ -306,9 +306,9 @@ class CommandsCog(commands.Cog):
                                 parts.append(f"{mins}m")
                             if not parts:
                                 parts.append("<1m")
-                            embed.add_field(name="Time Left", value=" ".join(parts), inline=True)
+                            embed.add_field(name=msg.get("formatting.time_left"), value=" ".join(parts), inline=True)
                     except Exception:
-                        embed.add_field(name="Expires", value=expires_at or "Unknown", inline=True)
+                        embed.add_field(name=msg.get("formatting.expires"), value=expires_at or "Unknown", inline=True)
 
                 embed.set_footer(text=msg.embed_footer("dm.ban_notice"))
                 await interaction.response.send_message(embed=embed, ephemeral=True)
@@ -318,7 +318,7 @@ class CommandsCog(commands.Cog):
                 if not interaction.response.is_done():
                     try:
                         await interaction.response.send_message(
-                            f"Failed to check ban info: {e}",
+                            msg.get("ban_commands.ban_failed", error=e),
                             ephemeral=True,
                         )
                     except Exception:
@@ -353,8 +353,8 @@ class CommandsCog(commands.Cog):
                 now = timezone.now()
 
                 embed = discord.Embed(
-                    title="Ticket Ban List",
-                    description=f"**{len(bans)}** user(s) currently banned.",
+                    title=msg.get("ban_commands.banlist_title"),
+                    description=msg.get("ban_commands.banlist_description", count=len(bans)),
                     color=15158332,
                 )
 
@@ -367,29 +367,29 @@ class CommandsCog(commands.Cog):
                     permanent = expires_at is None
 
                     if permanent:
-                        duration_text = "Permanent"
-                        time_left = "Forever"
+                        duration_text = msg.get("formatting.permanent")
+                        time_left = msg.get("formatting.forever")
                     else:
                         try:
                             exp_dt = datetime.fromisoformat(expires_at)
                             duration_text = f"<t:{int(exp_dt.timestamp())}:R>"
                             remaining = exp_dt - now
                             if remaining.total_seconds() <= 0:
-                                time_left = "Expired"
+                                time_left = msg.get("formatting.expired")
                             else:
                                 days = remaining.days
                                 hours, remainder = divmod(remaining.seconds, 3600)
                                 mins = remainder // 60
-                                parts = []
-                                if days > 0:
-                                    parts.append(f"{days}d")
-                                if hours > 0:
-                                    parts.append(f"{hours}h")
-                                if mins > 0:
-                                    parts.append(f"{mins}m")
-                                if not parts:
-                                    parts.append("<1m")
-                                time_left = " ".join(parts)
+                            parts = []
+                            if days > 0:
+                                parts.append(f"{days}d")
+                            if hours > 0:
+                                parts.append(f"{hours}h")
+                            if mins > 0:
+                                parts.append(f"{mins}m")
+                            if not parts:
+                                parts.append("<1m")
+                            time_left = " ".join(parts)
                         except Exception:
                             duration_text = expires_at or "Unknown"
                             time_left = "Unknown"
@@ -404,7 +404,7 @@ class CommandsCog(commands.Cog):
                     ]
 
                     embed.add_field(
-                        name=f"User {user_id}",
+                        name=msg.get("formatting.name_user", user_id=user_id),
                         value="\n".join(value_lines),
                         inline=False,
                     )
@@ -417,7 +417,7 @@ class CommandsCog(commands.Cog):
                 if not interaction.response.is_done():
                     try:
                         await interaction.response.send_message(
-                            f"Failed to list bans: {e}",
+                            msg.get("ban_commands.banlist_failed", error=e),
                             ephemeral=True,
                         )
                     except Exception:
@@ -456,7 +456,7 @@ class CommandsCog(commands.Cog):
                     )
                     if not has_perm:
                         await interaction.followup.send(
-                            "You do not have permission to move tickets.",
+                            msg.get("move.no_permission"),
                             ephemeral=True,
                         )
                         return
@@ -467,21 +467,21 @@ class CommandsCog(commands.Cog):
 
                 if old_category not in categories:
                     await interaction.followup.send(
-                        f"Invalid source category: **{old_category}**.",
+                        msg.get("move.invalid_source", category=old_category),
                         ephemeral=True,
                     )
                     return
 
                 if new_category not in categories:
                     await interaction.followup.send(
-                        f"Invalid destination category: **{new_category}**.",
+                        msg.get("move.invalid_destination", category=new_category),
                         ephemeral=True,
                     )
                     return
 
                 if old_category == new_category:
                     await interaction.followup.send(
-                        f"Source and destination categories are the same: **{new_category}**.",
+                        msg.get("move.same_category", category=new_category),
                         ephemeral=True,
                     )
                     return
@@ -490,21 +490,21 @@ class CommandsCog(commands.Cog):
                     ticket = await self.ticket_service.get_ticket(ticket_id)
                 except Exception:
                     await interaction.followup.send(
-                        f"Ticket **{ticket_id}** not found.",
+                        msg.get("move.ticket_not_found", ticket_id=ticket_id),
                         ephemeral=True,
                     )
                     return
 
                 if ticket["category"] != old_category:
                     await interaction.followup.send(
-                        f"Ticket **{ticket_id}** is in category **{ticket['category']}**, not **{old_category}**.",
+                        msg.get("move.wrong_category", ticket_id=ticket_id, category=ticket["category"], old_category=old_category),
                         ephemeral=True,
                     )
                     return
 
                 if ticket["status"] in ("CLOSED", "DELETED"):
                     await interaction.followup.send(
-                        f"Cannot move ticket **{ticket_id}**: status is **{ticket['status']}**.",
+                        msg.get("move.cannot_move_closed", ticket_id=ticket_id, status=ticket["status"]),
                         ephemeral=True,
                     )
                     return
@@ -618,7 +618,7 @@ class CommandsCog(commands.Cog):
                 )
 
                 await interaction.followup.send(
-                    f"Ticket **{ticket_id}** has been moved from **{old_category}** to **{new_category}**.",
+                    msg.get("move.success", ticket_id=ticket_id, old_category=old_category, new_category=new_category),
                     ephemeral=True,
                 )
 
@@ -627,7 +627,7 @@ class CommandsCog(commands.Cog):
                 if not interaction.response.is_done():
                     try:
                         await interaction.followup.send(
-                            f"Failed to move ticket: {e}",
+                            msg.get("move.move_failed", error=e),
                             ephemeral=True,
                         )
                     except Exception:
@@ -679,8 +679,7 @@ class CommandsCog(commands.Cog):
                 return
 
             await interaction.response.send_message(
-                "⚠️ **Are you sure?** This will delete **all ticket channels** and mark all tickets as deleted in the database.\n\n"
-                "Type `CONFIRM PURGE` in the next message to proceed.",
+                msg.get("purge.confirm"),
                 ephemeral=True,
             )
 
@@ -742,7 +741,7 @@ class CommandsCog(commands.Cog):
             )
 
             await interaction.followup.send(
-                f"✅ Purge complete. **{deleted_count}** tickets deleted."
+                msg.get("purge.complete", count=deleted_count)
                 + (f"\n⚠️ {channel_errors} channels could not be deleted." if channel_errors else ""),
                 ephemeral=True,
             )
@@ -751,7 +750,7 @@ class CommandsCog(commands.Cog):
             logger.error("Error in /purge: %s", e)
             if not interaction.response.is_done():
                 try:
-                    await interaction.followup.send(f"Failed to purge tickets: {e}", ephemeral=True)
+                    await interaction.followup.send(msg.get("purge.purge_failed", error=e), ephemeral=True)
                 except Exception:
                     pass
 
@@ -767,8 +766,7 @@ class CommandsCog(commands.Cog):
                 return
 
             await interaction.response.send_message(
-                "⚠️ **DANGER:** This will **completely delete** `tickets.db` and all bot data.\n\n"
-                "Type `CONFIRM PURGEALL` in the next message to proceed.",
+                msg.get("purgeall.confirm"),
                 ephemeral=True,
             )
 
@@ -835,12 +833,12 @@ class CommandsCog(commands.Cog):
 
             if db_deleted:
                 await interaction.followup.send(
-                    f"✅ Database deleted. **{len(all_tickets)}** tickets removed. Bot will restart with fresh DB.",
+                    msg.get("purgeall.complete", count=len(all_tickets)),
                     ephemeral=True,
                 )
             else:
                 await interaction.followup.send(
-                    f"⚠️ Tickets cleared but database file could not be deleted. Manual removal of `tickets.db` may be needed.",
+                    msg.get("purgeall.db_delete_failed"),
                     ephemeral=True,
                 )
 
@@ -848,7 +846,7 @@ class CommandsCog(commands.Cog):
             logger.error("Error in /purgeall: %s", e)
             if not interaction.response.is_done():
                 try:
-                    await interaction.followup.send(f"Failed to purge database: {e}", ephemeral=True)
+                    await interaction.followup.send(msg.get("purgeall.purge_failed", error=e), ephemeral=True)
                 except Exception:
                     pass
 
@@ -862,7 +860,7 @@ class CommandsCog(commands.Cog):
                 )
                 if not has_perm:
                     await interaction.response.send_message(
-                        "You do not have permission to use this command.",
+                        msg.get("permissions.no_permission_admin_stats"),
                         ephemeral=True,
                     )
                     return
@@ -873,30 +871,30 @@ class CommandsCog(commands.Cog):
             cat_stats = await self.statistics_service.get_category_stats()
 
             embed = discord.Embed(
-                title="IRBW Admin Statistics Dashboard",
+                title=msg.get("admin.admin_stats_title"),
                 color=5814783,
             )
 
-            embed.add_field(name="Total Tickets", value=str(stats["total"]), inline=True)
-            embed.add_field(name="Today", value=str(stats["today"]), inline=True)
-            embed.add_field(name="This Week", value=str(stats["this_week"]), inline=True)
-            embed.add_field(name="This Month", value=str(stats["this_month"]), inline=True)
-            embed.add_field(name="Pending", value=str(stats["pending"]), inline=True)
-            embed.add_field(name="Open", value=str(stats["open"]), inline=True)
-            embed.add_field(name="Claimed", value=str(stats["claimed"]), inline=True)
-            embed.add_field(name="Responded", value=str(stats["responded"]), inline=True)
-            embed.add_field(name="Closed", value=str(stats["closed"]), inline=True)
-            embed.add_field(name="Deleted", value=str(stats["deleted"]), inline=True)
+            embed.add_field(name=msg.get("admin.total_tickets"), value=str(stats["total"]), inline=True)
+            embed.add_field(name=msg.get("admin.today"), value=str(stats["today"]), inline=True)
+            embed.add_field(name=msg.get("admin.this_week"), value=str(stats["this_week"]), inline=True)
+            embed.add_field(name=msg.get("admin.this_month"), value=str(stats["this_month"]), inline=True)
+            embed.add_field(name=msg.get("admin.pending"), value=str(stats["pending"]), inline=True)
+            embed.add_field(name=msg.get("admin.open"), value=str(stats["open"]), inline=True)
+            embed.add_field(name=msg.get("admin.claimed"), value=str(stats["claimed"]), inline=True)
+            embed.add_field(name=msg.get("admin.responded"), value=str(stats["responded"]), inline=True)
+            embed.add_field(name=msg.get("admin.closed"), value=str(stats["closed"]), inline=True)
+            embed.add_field(name=msg.get("admin.deleted"), value=str(stats["deleted"]), inline=True)
 
             if stats.get("avg_response_time"):
                 embed.add_field(
-                    name="Avg Response Time",
+                    name=msg.get("admin.avg_response_time"),
                     value=format_duration(stats["avg_response_time"]),
                     inline=True,
                 )
             if stats.get("avg_resolution_time"):
                 embed.add_field(
-                    name="Avg Resolution Time",
+                    name=msg.get("admin.avg_resolution_time"),
                     value=format_duration(stats["avg_resolution_time"]),
                     inline=True,
                 )
@@ -906,7 +904,7 @@ class CommandsCog(commands.Cog):
                     f"**{cat.title()}:** {count}"
                     for cat, count in stats["category_distribution"].items()
                 )
-                embed.add_field(name="Category Distribution", value=cat_text, inline=False)
+                embed.add_field(name=msg.get("admin.category_distribution"), value=cat_text, inline=False)
 
             if stats.get("staff_responds"):
                 staff_text = "\n".join(
@@ -917,7 +915,7 @@ class CommandsCog(commands.Cog):
                         reverse=True,
                     )[:10]
                 )
-                embed.add_field(name="Top Responders", value=staff_text or "None", inline=False)
+                embed.add_field(name=msg.get("admin.top_responders"), value=staff_text or msg.get("admin.none"), inline=False)
 
             if stats.get("staff_claims"):
                 claims_by_total: dict[str, int] = {}
@@ -933,7 +931,7 @@ class CommandsCog(commands.Cog):
                         reverse=True,
                     )[:10]
                 )
-                embed.add_field(name="Top Claimers", value=claims_text or "None", inline=False)
+                embed.add_field(name=msg.get("admin.top_claimers"), value=claims_text or msg.get("admin.none"), inline=False)
 
             embed.set_footer(text=msg.get("commands.admin_stats_title"))
             await interaction.followup.send(embed=embed)

@@ -399,4 +399,4 @@ cp tickets.db tickets_backup.db
 
 ## License
 
-This project is provided as-is for the IRBW server.
+MIT License

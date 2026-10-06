@@ -82,7 +82,11 @@ logger = logging.getLogger("ticket_bot.main")
 class TicketBot(commands.Bot):
     """Main bot class for the IRBW Ticket System."""
 
-    def __init__(self, connector: Optional[aiohttp.TCPConnector] = None) -> None:
+    def __init__(
+        self,
+        proxy: Optional[str] = None,
+        proxy_auth: Optional[aiohttp.BasicAuth] = None,
+    ) -> None:
         intents = discord.Intents.default()
         intents.message_content = True
         intents.members = True
@@ -91,7 +95,8 @@ class TicketBot(commands.Bot):
         super().__init__(
             command_prefix="!",
             intents=intents,
-            connector=connector,
+            proxy=proxy,
+            proxy_auth=proxy_auth,
             activity=discord.Activity(
                 type=discord.ActivityType.watching,
                 name="IRBW Support",
@@ -250,14 +255,22 @@ class TicketBot(commands.Bot):
             pass
 
 
-def _build_connector() -> Optional[aiohttp.TCPConnector]:
-    """Build an aiohttp connector with proxy support if configured."""
+def _build_connector() -> tuple[Optional[str], Optional[aiohttp.BasicAuth]]:
+    """Build proxy URL and auth for discord.py, if configured.
+
+    discord.py's Client accepts `proxy` (a URL string) and `proxy_auth`
+    (an aiohttp.BasicAuth) directly, and wires them into its internal
+    HTTP/gateway connections at the right time. We must NOT construct an
+    aiohttp.TCPConnector ourselves here, because that requires a running
+    asyncio event loop, and none exists yet at this point in startup
+    (the loop is only created inside bot.run()).
+    """
     from services.config_service import ConfigService
     cfg = ConfigService()
     cfg.load()
     proxy_cfg = cfg.get("proxy", {})
     if not proxy_cfg.get("enabled"):
-        return None
+        return None, None
 
     host = proxy_cfg.get("host", "")
     port = proxy_cfg.get("port", 0)
@@ -267,24 +280,27 @@ def _build_connector() -> Optional[aiohttp.TCPConnector]:
 
     if not host or not port:
         logger.warning("Proxy enabled but host/port not set, skipping proxy.")
-        return None
+        return None, None
 
     proxy_url = f"{proxy_type}://{host}:{port}"
-    logger.info("Building proxy connector: %s (type=%s, auth=%s)", proxy_url, proxy_type, "yes" if username else "no")
+    logger.info(
+        "Using proxy: %s (type=%s, auth=%s)",
+        proxy_url, proxy_type, "yes" if username else "no",
+    )
 
-    connector = aiohttp.TCPConnector()
-    connector._proxy = proxy_url  # type: ignore
+    proxy_auth = None
     if username and password:
-        connector._proxy_auth = aiohttp.BasicAuth(username, password)  # type: ignore
-    return connector
+        proxy_auth = aiohttp.BasicAuth(username, password)
+
+    return proxy_url, proxy_auth
 
 
 def main() -> None:
     setup_logging()
     logger.info("Starting IRBW Ticket Bot...")
 
-    connector = _build_connector()
-    bot = TicketBot(connector=connector)
+    proxy, proxy_auth = _build_connector()
+    bot = TicketBot(proxy=proxy, proxy_auth=proxy_auth)
     bot.run(DISCORD_TOKEN, log_handler=None)
 
 
